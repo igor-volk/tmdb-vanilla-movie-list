@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Feed</title>
+    <script src="http://cdn.date-fns.org/v2.0.0-alpha0/date_fns.min.js"></script>
+    <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+    <script type="module">
+        import { getMovies } from "./services/movieService.js";
+        window.getMovies = getMovies;
+    </script>
+    <script type="module">
+      import { renderMovies, toggleFavourites, renderUI, movieTypeChange, sortingChange, searchChange } from "./view.js";
+      window.renderMovies = renderMovies;
+      window.toggleFavourites = toggleFavourites;
+      window.renderUI = renderUI;
+      window.movieTypeChange = movieTypeChange;
+      window.sortingChange = sortingChange;
+      window.searchChange = searchChange;
+    </script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <img src="https://www.themoviedb.org/assets/2/v4/logos/primary-green-d70eebe18a5eb5b166d5c1ef0796715b8d1a2cbc698f96d311d62f894ae87085.svg" alt="The Movie Database (TMDb)" width="81" height="72">
+    </div>
+    <div class="content">
+        <div class="centered-row"><span class="movie-db">THE MOVIE DB</span></div>
+        <div class="centered-row"><span class="find-any-movie">Find any movie</span></div>
+        <div class="centered-row">
+            <div class="search">
+                <input type="text" class="input" placeholder="Search movies..." oninput="searchChange(this.value)" />
+                <button type="submit"><span class="iconify" data-icon="entypo-magnifying-glass" data-inline="false"></span></button>
+            </div>
+        </div>
+        <div class="centered-row">
+            <div class="list-container">
+                <div class="filters-container">
+                    <div class="counter-container">
+                        <div class="counter-header"></div>
+                        <div class="counter-message">Showing 6 of a total of 6 movies</div>
+                    </div>
+                    <div class="select-container">
+                        <select id="sorting" onchange="sortingChange(this.value)">
+                            <option value="none">No sorting</option>
+                            <option value="highest_rating">Highest Rating</option>
+                        </select>
+                        <select id="movie_types" onchange="movieTypeChange(this.value)">
+                            <option value="all">All movies</option>
+                            <option value="favourites">Favourites</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="movie-list"></div>
+            </div>
+        </div>
+    </div>
+<script>
+    window.onload = () => {
+      getMovies().then(movies => {
+        window.sorting = "none";
+        window.movieType = "All movies";
+        window.allMovies = movies;
+        window.movies = movies;
+
+        renderUI();
+      });
+    }
+
+    const favourites = localStorage.getItem("favourites");
+    if(!favourites) {
+      localStorage.setItem("favourites", JSON.stringify([]));
+    }
+</script>
+</body>
+</html>

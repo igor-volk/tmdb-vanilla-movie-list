@@ -1,0 +1,26 @@
+{
+  "name": "tmdb-vanilla-movie-list",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "jest --watch",
+    "start": "node ./server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "babel-jest": "^25.1.0",
+    "fetch-mock": "^9.1.2",
+    "fetch-mock-jest": "^1.2.3",
+    "jest": "^25.1.0",
+    "node-fetch": "^2.6.0"
+  },
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./jest/globals.js"
+    ]
+  }
+}
