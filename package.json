@@ -15,7 +15,7 @@
     "fetch-mock": "^9.1.2",
     "fetch-mock-jest": "^1.2.3",
     "jest": "^25.1.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.7"
   },
   "jest": {
     "automock": false,
